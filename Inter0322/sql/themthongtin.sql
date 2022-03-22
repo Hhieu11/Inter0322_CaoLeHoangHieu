@@ -1,0 +1,1 @@
+SELECT * FROM furama.vi_tri;
