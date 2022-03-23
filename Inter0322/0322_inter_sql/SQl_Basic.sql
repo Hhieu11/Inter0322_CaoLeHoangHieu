@@ -90,8 +90,6 @@ and dv.ma_dich_vu not in (select dv.ma_dich_vu from dich_vu dv inner join hop_do
 					where (year(ngay_lam_hop_dong)=2021 and month(ngay_lam_hop_dong) in (1, 2, 3, 4, 5, 6)))
 group by hd.ma_hop_dong, nv.ho_ten, kh.ho_ten, kh.so_dien_thoai, ten_dich_vu;
      
-     
-     
 -- 13 --
 
 Select dvdk.ma_dich_vu_di_kem, dvdk.ten_dich_vu_di_kem, sum(hdct.so_luong) as so_luong_dich_vu_di_kem
@@ -102,12 +100,82 @@ order by so_luong_dich_vu_di_kem desc
 limit 2;
 
 -- cau 15 --
-select
-from nhan_vien nv left join  trinh_do td on td.ma_trinh_do=nv.ma_trinh_do
-                  left join bo_phan bp on bp.ma_bo_phan = nv.ma_bo_phan
+
+select distinct nv.ma_nhan_vien, nv.ho_va_ten, td.ten_trinh_do, bp.ten_bo_phan, nv.so_dien_thoai, nv.dia_chi
+from nhan_vien nv
+inner join bo_phan bp on bp.ma_bo_phan = nv.ma_bo_phan
+inner join trinh_do td on td.ma_trinh_do = nv.ma_trinh_do
+inner join hop_dong hd on hd.ma_nhan_vien = nv.ma_nhan_vien
+group by hd.ma_nhan_vien
+having count(hd.ma_nhan_vien) <=3;
                   
-                  inner join hop_dong hd on hd.ma_hop_dong= 
+                  
+         ;
+-- cau 16 --
+Delete from nhan_vien
+where ma_nhan_vien not in (Select nv.ma_nhan_vien
+from nhan_vien nv inner join hop_dong hd on nv.ma_nhan_vien = hd.ma_nhan_vien
+where (year(ngay_lam_hop_dong) in ("2019", "2020", "2021" )))
+;
+-- cau 18 --
+Delete from khach_hang where ma_khach_hang in (Select kh.ma_khach_hang
+from khach_hang kh inner join hop_dong hd on kh.ma_khach_hang = hd.ma_khach_hang
+where (year(ngay_lam_hop_dong)<2021));
+
+-- 20 --
+Select ma_nhan_vien as id, ho_va_ten, email, so_dien_thoai, ngay_sinh, dia_chi
+from nhan_vien
+union
+select ma_khach_hang as id, ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi
+from khach_hang
+;
+
+
+-- SQL Nâng Cao --
+
+-- cau  21 --
+
+
+
+CREATE VIEW v_nhan_vien AS SELECT * from nhan_vien;
+;
+select * from v_nhan_vien vnv
+left join hop_dong hd on vnv.ma_nhan_vien=hd.ma_nhan_vien
+where vnv.dia_chi like "%Đà Nẵng%" 
+group by vnv.ma_nhan_vien,hd.ngay_lam_hop_dong
+;
 
 
 
 
+
+
+-- cau 22 --
+SET SQL_SAFE_UPDATES = 0;
+ UPDATE v_nhan_vien vnv
+ SET vnv.dia_chi = 'quang ngai'
+ WHERE vnv.dia_chi = 'Đà Nẵng';
+ 
+ -- cau 23 --
+ 
+DELIMITER $$
+
+CREATE PROCEDURE sp_xoa_khach_hang (IN ma_kh int) 
+BEGIN 
+DELETE FROM khach_hang WHERE ma_khach_hang = ma_kh; 
+END$$
+DELIMITER ;
+call sp_xoa_khach_hang(8);
+
+
+-- cau 24 --
+
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_them_moi_hop_dong (IN ma_hop_dong_in int, ngay_lam_hop_dong_in datetime, ngay_ket_thuc_in datetime, tien_dat_coc_in double,ma_nhan_vien_in int,ma_khach_hang_in int,ma_dich_vu_in int) 
+BEGIN 
+INSERT INTO hop_dong (ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, ma_nhan_vien, ma_khach_hang, ma_dich_vu ) 
+VALUES (ma_hop_dong_in, ngay_lam_hop_dong_in, ngay_ket_thuc_in, tien_dat_coc_in, ma_nhan_vien_in, ma_khach_hang_in, ma_dich_vu_in );
+END $$
+DELIMITER ;
