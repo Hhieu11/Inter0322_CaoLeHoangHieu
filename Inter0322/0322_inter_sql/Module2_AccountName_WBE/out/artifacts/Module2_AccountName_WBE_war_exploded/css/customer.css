@@ -1,0 +1,26 @@
+fieldset{
+    width: 350px;
+}
+.row{
+    display: flex;
+
+}
+label{
+    width: 100px;
+}
+input,select{
+    margin-bottom: 10px;
+}
+form{
+    background-color: aqua;
+    width: 320px;
+    padding: 30px;
+}
+.btn{
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 3px 3px 5px lightgray;
+}

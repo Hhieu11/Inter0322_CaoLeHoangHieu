@@ -2,10 +2,7 @@ package furama;
 
 import Service.CustomerService;
 import Service.EmployeeSevice;
-import Service.Impl.BookingServiceImpl;
-import Service.Impl.CustomerServiceImpl;
-import Service.Impl.EmployeeServiceImpl;
-import Service.Impl.FacilityServiceImpl;
+import Service.Impl.*;
 
 import java.util.Scanner;
 
@@ -152,7 +149,7 @@ public class FuramaController {
 
     }
     public static void displayBookingMenu() {
-        BookingServiceImpl bookingService= new BookingServiceImpl();
+
         boolean check = true;
         while (check) {
             System.out.println("1.Add new booking");
@@ -161,6 +158,9 @@ public class FuramaController {
             System.out.println("4.Display list contracts");
             System.out.println("5.Edit contracts");
             System.out.println("6.Return main menu");
+            BookingServiceImpl bookingService= new BookingServiceImpl();
+            ContractServiceImpl contractService= new ContractServiceImpl();
+
 
 
             Scanner scanner = new Scanner(System.in);
@@ -168,11 +168,24 @@ public class FuramaController {
             switch (scanner.nextInt()) {
                 case 1: {
                     bookingService.addNew();
+                    displayBookingMenu();
                     break;
 
                 }
                 case 2:{
                     bookingService.display();
+                    displayBookingMenu();
+                    break;
+                }
+                case 3:{
+                    contractService.addNew();
+                    displayBookingMenu();
+                    break;
+
+                }
+                case 4:{
+                    contractService.display();
+                    displayBookingMenu();
                     break;
                 }
                 case 6:{

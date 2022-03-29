@@ -10,6 +10,8 @@ import utils.BookingComparator;
 import java.util.*;
 
 public class BookingServiceImpl implements BookingService {
+
+    //sắp xếp ngày bắt đầu thuê
     static Set<Booking> bookingSet= new TreeSet<>(new BookingComparator());
      static  List<Customer>customerList= new ArrayList<>();
     static Map<Facility,Integer>facilityIntegerMap= new LinkedHashMap<>();
@@ -25,11 +27,16 @@ public class BookingServiceImpl implements BookingService {
                 123123123,"hieu@gmail","Diamond") );
 
 
-        facilityIntegerMap.put(new Villa( 1,"Villa 1",250.0,"date","140",
-                22,3,150),0);// để ý key
+        facilityIntegerMap.put(new Villa( 4,"Villa 1",250.0,"date","140",
+                22,3,150),1);// để ý key
 
-        facilityIntegerMap.put(new Villa( 2,"Villa 2",330.0,"week","160",
-                12,3,150),0);
+        facilityIntegerMap.put(new Villa( 5,"Villa 2",330.0,"week","160",
+                12,3,150),2);
+    }
+
+    // tạo để lấy dữ liệu
+    public Set<Booking> sendBooking(){
+        return bookingSet;
     }
 
     @Override
