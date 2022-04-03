@@ -11,6 +11,7 @@ public abstract class Facility {
     }
 
     public Facility(int idFacility,String name, double price, String rentalType, String usableArea) {
+        this.idFacility=idFacility;
         this.name = name;
         this.price = price;
         this.rentalType = rentalType;
@@ -59,12 +60,11 @@ public abstract class Facility {
 
     @Override
     public String toString() {
-        return "Facility{" +
+        return
                 "idFacility='" + idFacility + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", rentalType='" + rentalType + '\'' +
-                ", usableArea='" + usableArea + '\'' +
-                '}';
+                ", usableArea='" + usableArea + '\'' ;
     }
 }

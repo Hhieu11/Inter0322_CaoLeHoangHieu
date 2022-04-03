@@ -112,12 +112,12 @@ public class Contract {
 
     @Override
     public String toString() {
-        return "Contract{" +
+        return "Contract" +
                 "id='" + id + '\'' +
                 ", booking=" + booking +
                 ", pre='" + pre + '\'' +
                 ", pay='" + pay + '\'' +
-                ", customer=" + customer +
-                '}';
+                ", customer=" + customer
+                ;
     }
 }

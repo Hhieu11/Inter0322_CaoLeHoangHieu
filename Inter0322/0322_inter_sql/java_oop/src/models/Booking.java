@@ -62,13 +62,13 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking{" +
+        return "Booking" +
                 "id=" + id +
                 ", checkIn='" + checkIn + '\'' +
                 ", checkOut='" + checkOut + '\'' +
                 ", customer=" + customer +
-                ", service=" + service +
-                '}';
+                ", service=" + service
+                ;
     }
     //    public Booking(String code, String checkIn, String checkOut, Customer customerId, Facility service) {
 //        this.code = code;

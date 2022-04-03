@@ -87,7 +87,11 @@ public class BookingServiceImpl implements BookingService {
 
         System.out.println("Nhap id dịch vụ");
         boolean check=true;
-        int id=Integer.parseInt(scanner.nextLine());
+
+
+        int id  =Integer.parseInt(scanner.nextLine());
+
+
         // dùng while để lặp
         while (check){
             for(Map.Entry<Facility,Integer> entry:facilityIntegerMap.entrySet()){

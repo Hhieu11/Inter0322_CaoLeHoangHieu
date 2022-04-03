@@ -29,9 +29,9 @@ public class ContractServiceImpl implements ContactService {
             bookingQueue.add(o);
 
         // kiểm tra rỗng  , kh rỗng tiếp tục chạy
-        while (!bookingQueue.isEmpty()) {
-
-        }
+//        while (!bookingQueue.isEmpty()) {
+//
+//        }
         Booking booking = bookingQueue.poll();
         Customer customer = booking.getCustomer();
 
